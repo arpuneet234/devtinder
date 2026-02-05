@@ -1,24 +1,27 @@
 const express = require("express");
 const app = express();
 
-app.get("/user", (req, res) => {
-  res.send({ firstName: "Akshay", lastName: "saini" });
+const { adminauth } = require("./middleware/auth");
+
+app.use("/admin", adminauth);
+app.get("/admin/getAllData", (req, res) => {
+  res.send("All data sent");
 });
 
-app.post("/user", (req, res) => {
-  //saving Data to Data Base
+app.get("/admin/deleteuser", (req, res) => {
+  throw new Error("absbbsn");
 
-  res.send("Data Successfully added to DB");
+  res.send("User Deleted");
 });
 
-app.delete("/user", (req, res) => {
-  // Delete Operation
-  res.send("Deleted");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.status(500).send("Some Error Occured Call Support Team");
+  }
 });
-
-app.get("/abc/:abcid", (req, res) => {
-  res.send(req.params);
-});
+// app.use("/user", (req, res) => {
+//   res.send("user");
+// });
 
 app.listen(3000, () => {
   console.log("Server started at 3000");

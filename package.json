@@ -1,0 +1,24 @@
+{
+  "name": "devtinder",
+  "version": "1.0.0",
+  "description": "Tinder for Devlopers",
+  "homepage": "https://github.com/arpuneet234/devtinder#readme",
+  "bugs": {
+    "url": "https://github.com/arpuneet234/devtinder/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arpuneet234/devtinder.git"
+  },
+  "license": "ISC",
+  "author": "Puneet Arora",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

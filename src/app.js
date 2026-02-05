@@ -1,22 +1,25 @@
 const express = require("express");
 const app = express();
 
-app.use("/hello", (req, res) => {
-  res.send("hello from hello");
+app.get("/user", (req, res) => {
+  res.send({ firstName: "Akshay", lastName: "saini" });
 });
 
-app.use("/test", (req, res) => {
-  res.send("hello from test");
+app.post("/user", (req, res) => {
+  //saving Data to Data Base
+
+  res.send("Data Successfully added to DB");
 });
 
-app.use("/", (req, res) => {
-  res.send("hello from server 2");
+app.delete("/user", (req, res) => {
+  // Delete Operation
+  res.send("Deleted");
+});
+
+app.get("/abc/:abcid", (req, res) => {
+  res.send(req.params);
 });
 
 app.listen(3000, () => {
-  console.log("server started at 3000");
-});
-
-app.listen(4000, () => {
-  console.log("server started at 4000");
+  console.log("Server started at 3000");
 });

@@ -1,28 +1,32 @@
 const express = require("express");
 const app = express();
 
-const { adminauth } = require("./middleware/auth");
+const User = require("./models/user");
 
-app.use("/admin", adminauth);
-app.get("/admin/getAllData", (req, res) => {
-  res.send("All data sent");
-});
+const connectDb = require("./config/database");
 
-app.get("/admin/deleteuser", (req, res) => {
-  throw new Error("absbbsn");
+app.use(express.json());
 
-  res.send("User Deleted");
-});
+app.post("/signup", async (req, res) => {
+  const user = new User(req.body);
 
-app.use("/", (err, req, res, next) => {
-  if (err) {
-    res.status(500).send("Some Error Occured Call Support Team");
+  try {
+    await user.save();
+
+    res.send("User Added Successfully");
+  } catch (err) {
+    res.status(400).send("Error Saving the user");
   }
 });
-// app.use("/user", (req, res) => {
-//   res.send("user");
-// });
 
-app.listen(3000, () => {
-  console.log("Server started at 3000");
-});
+connectDb()
+  .then(() => {
+    console.log("Database connected successfully");
+
+    app.listen(3000, () => {
+      console.log("Server started at 3000");
+    });
+  })
+  .catch((err) => {
+    console.error("Database not connected");
+  });

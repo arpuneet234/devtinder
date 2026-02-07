@@ -15,7 +15,7 @@ app.post("/signup", async (req, res) => {
 
     res.send("User Added Successfully");
   } catch (err) {
-    res.status(400).send("Error Saving the user");
+    res.status(400).send("Error Saving the user" + err.message);
   }
 });
 
@@ -24,15 +24,32 @@ app.patch("/user", async (req, res) => {
     const userId = req.body.userId;
     const data = req.body;
 
+    const ALLOWED_UPDATES = [
+      "userId",
+      "firstName",
+      "lastName",
+      "about",
+      "gender",
+    ];
+
+    const isUpdateAllowed = Object.keys(data).every((key) => {
+      ALLOWED_UPDATES.includes(key);
+    });
+
+    if (!isUpdateAllowed) {
+      throw new Error("Update Not Allowed");
+    }
+
     const user = await User.findByIdAndUpdate({ _id: userId }, data, {
       returnDocument: "after",
+      runValidators: true,
     });
 
     console.log(user);
 
     res.send("user updated successfully");
   } catch (err) {
-    res.status(404).send("Something Went wrong");
+    res.status(404).send("Something Went wrong" + err.message);
   }
 });
 

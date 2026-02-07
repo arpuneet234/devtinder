@@ -5,5 +5,4 @@ const connectDB = async () => {
     "mongodb+srv://puneet159160:puneet159160@nodejslearning.mmk53gv.mongodb.net/devTinder",
   );
 };
-
 module.exports = connectDB;

@@ -11,4 +11,13 @@ const singupValidation = (req) => {
   }
 };
 
-module.exports = singupValidation;
+const validateEditProfileData = (req) => {
+  const allowedEditFields = ["firstName", "lastName", "about", "gender", "age"];
+
+  const isEditAllowed = Object.keys(req.body).every((field) => {
+    return allowedEditFields.includes(field);
+  });
+
+  return isEditAllowed;
+};
+module.exports = { singupValidation, validateEditProfileData };

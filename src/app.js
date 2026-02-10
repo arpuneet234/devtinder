@@ -38,10 +38,10 @@ app.post("/login", async (req, res) => {
       throw new Error("Invalid Credentials");
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = user.validatePassword(password);
 
     if (isPasswordValid) {
-      const token = await jwt.sign({ _id: user._id }, "devTinder@123");
+      const token = await user.getJWT();
       console.log(token);
 
       res.cookie("token", token);
@@ -63,7 +63,7 @@ app.get("/profile", userAuth, async (req, res) => {
   }
 });
 
-app.post("/sendconnectionrequest", (req, res) => {
+app.post("/sendconnectionrequest", userAuth, (req, res) => {
   res.send("connection req send");
   console.log("Connection");
 });

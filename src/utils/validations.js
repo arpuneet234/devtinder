@@ -1,6 +1,6 @@
 const validator = require("validator");
 
-const singupValidation = (req) => {
+const signupValidation = (req) => {
   const { firstName, lastName, email, password } = req.body;
   if (!firstName || !lastName) {
     throw new Error("Name not Valid");
@@ -20,4 +20,13 @@ const validateEditProfileData = (req) => {
 
   return isEditAllowed;
 };
-module.exports = { singupValidation, validateEditProfileData };
+const passwordValidation = (password) => {
+  if (!validator.isStrongPassword(password)) {
+    throw new Error("Password is not Strong");
+  }
+};
+module.exports = {
+  signupValidation,
+  validateEditProfileData,
+  passwordValidation,
+};

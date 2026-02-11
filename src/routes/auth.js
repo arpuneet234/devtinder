@@ -1,6 +1,6 @@
 const express = require("express");
 const authRouter = express.Router();
-const signupValidation = require("../utils/validations");
+const { signupValidation } = require("../utils/validations");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
@@ -31,7 +31,7 @@ authRouter.post("/login", async (req, res) => {
       throw new Error("Invalid Credentials");
     }
 
-    const isPasswordValid = user.validatePassword(password);
+    const isPasswordValid = await user.validatePassword(password);
 
     if (isPasswordValid) {
       const token = await user.getJWT();

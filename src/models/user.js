@@ -26,6 +26,11 @@ const userSchema = mongoose.Schema(
       type: Number,
       min: 18,
     },
+    photoUrl: {
+      type: String,
+      default:
+        "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg",
+    },
     email: {
       type: String,
       required: true,

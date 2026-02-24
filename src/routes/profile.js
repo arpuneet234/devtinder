@@ -19,7 +19,7 @@ profileRouter.get("/profile/view", userAuth, async (req, res) => {
   }
 });
 
-profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
+profileRouter.put("/profile/edit", userAuth, async (req, res) => {
   try {
     console.log(validateEditProfileData(req));
     if (!validateEditProfileData(req)) {
@@ -34,7 +34,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
 
     await loggedInUser.save();
 
-    res.send(`${loggedInUser.firstName} , your Profile is updated sucessfully`);
+    res.send(loggedInUser);
   } catch (err) {
     res.status(400).send("ERROR :" + err.message);
   }

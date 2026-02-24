@@ -31,8 +31,23 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
         { toUserId: loggedInUser, status: "accepted" },
       ],
     })
-      .populate("fromUserId", ["firstName", "lastName"])
-      .populate("toUserId", ["firstName", "lastName"]);
+      .populate("fromUserId", [
+        "firstName",
+        "lastName",
+        "about",
+        ,
+        "age",
+        "gender",
+        "photoUrl",
+      ])
+      .populate("toUserId", [
+        "firstName",
+        "lastName",
+        "about",
+        "age",
+        "gender",
+        "photoUrl",
+      ]);
 
     const data = connectionRequests.map((row) => {
       if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
@@ -59,8 +74,22 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
     })
       .select(["fromUserId", "toUserId"])
-      .populate("fromUserId", ["firstName", "lastName"])
-      .populate("toUserId", ["firstName", "lastName"]);
+      .populate("fromUserId", [
+        "firstName",
+        "lastName",
+        "about",
+        "photoUrl",
+        "age",
+        "gender",
+      ])
+      .populate("toUserId", [
+        "firstName",
+        "lastName",
+        "about",
+        "photoUrl",
+        "age",
+        "gender",
+      ]);
 
     const hideUserFromFeed = new Set();
 
@@ -76,7 +105,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
         { _id: { $ne: loggedInUser._id } },
       ],
     })
-      .select(["firstName", "lastName"])
+      .select(["firstName", "lastName", "about", "photoUrl", "age", "gender"])
       .skip(skip)
       .limit(limit);
 

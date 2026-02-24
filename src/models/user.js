@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema(
     photoUrl: {
       type: String,
       default:
-        "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg",
+        "https://i.pinimg.com/originals/90/de/25/90de257fdac14d35d66a81ab8e282cad.jpg",
     },
     email: {
       type: String,
